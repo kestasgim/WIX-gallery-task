@@ -1,9 +1,9 @@
-function static(query, imageFinder, gallery){
-  
+function static(query, imageFinder, gallery) {
+
   let images;
 
   if (window.DATA.staticImagesDb && query) {
-      
+
     images = (window.DATA.staticImagesDb.filter(item => item.title.includes(query))).map(function (image) {
       delete image.type;
       delete image.width;

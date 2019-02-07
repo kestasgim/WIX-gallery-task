@@ -5,29 +5,28 @@ function flickr(query, imageFinder, gallery) {
     let flickrSearchURL = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key='
       + apiKey + '&tags=' + query + '&format=json&nojsoncallback=1';
 
-
     let httpRequest = new XMLHttpRequest();
-    
-    for(let i in imageFinder.httpRequests){
-      if(imageFinder.httpRequests[i].gallery == gallery){   
+
+    for (let i in imageFinder.httpRequests) {
+      if (imageFinder.httpRequests[i].gallery === gallery) {
         imageFinder.httpRequests[i].requests.push(httpRequest);
       }
     }
 
     httpRequest.open("GET", flickrSearchURL, true);
     httpRequest.onload = function () {
-      const httpRequestResponseObject = JSON.parse(httpRequest.response);
+      const httpResponseObject = JSON.parse(httpRequest.response);
 
       images = [];
-      for (let i = 0; i < httpRequestResponseObject.photos.photo.length; i++) {
+      for (let i = 0; i < httpResponseObject.photos.photo.length; i++) {
         let image = {
-          id: httpRequestResponseObject.photos.photo[i].id,
-          url: 'https://farm' + httpRequestResponseObject.photos.photo[i].farm
-            + '.staticflickr.com/' + httpRequestResponseObject.photos.photo[i].server
-            + '/' + httpRequestResponseObject.photos.photo[i].id
-            + '_' + httpRequestResponseObject.photos.photo[i].secret
+          id: httpResponseObject.photos.photo[i].id,
+          url: 'https://farm' + httpResponseObject.photos.photo[i].farm
+            + '.staticflickr.com/' + httpResponseObject.photos.photo[i].server
+            + '/' + httpResponseObject.photos.photo[i].id
+            + '_' + httpResponseObject.photos.photo[i].secret
             + '.jpg',
-          title: httpRequestResponseObject.photos.photo[i].title
+          title: httpResponseObject.photos.photo[i].title
         }
         images.push(image);
       }

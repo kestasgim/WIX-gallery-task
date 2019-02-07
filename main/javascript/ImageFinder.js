@@ -17,9 +17,9 @@
 
     let searchFlag = false;
     for (let i in this.httpRequests) {
-      if (this.httpRequests[i].gallery == gallery) {
-        if(this.httpRequests[i].requests){
-          this.httpRequests[i].requests.forEach( function (request) {
+      if (this.httpRequests[i].gallery === gallery) {
+        if (this.httpRequests[i].requests) {
+          this.httpRequests[i].requests.forEach(function (request) {
             request.abort();
           })
         }
